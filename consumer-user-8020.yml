@@ -1,0 +1,25 @@
+server:
+  port: 8020
+spring:
+  application:   #定义服务名称  必须定义  
+    name: consumer-user
+eureka:
+  client:
+    service-url:
+      #链接注册中心集群
+       defaultZone: http://localhost:7000/eureka
+  instance:
+    instance-id: consumer-user-8020  #多个服务id必须不同
+    prefer-ip-address: true          #是否显示IP和端口
+
+feign:
+  hystrix:
+    enabled: true         #启动熔断器机制 !!!!!!!!!!!!!
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000  #设定熔断器超时时间
